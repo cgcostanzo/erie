@@ -1,0 +1,15 @@
+title: Erie
+author: Charles Costanzo
+version: 1.0.0
+quarto-required: ">=1.4.0"
+contributes:
+  formats:
+    beamer:
+      theme: erie
+      colortheme: erie
+      pdf-engine: lualatex
+      aspectratio: 169
+      fontsize: 14pt
+      format-resources:
+        - beamerthemeerie.sty
+        - beamercolorthemeerie.sty

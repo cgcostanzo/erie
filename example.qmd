@@ -1,0 +1,27 @@
+---
+title: "Erie theme in Quarto"
+author: "Charles Costanzo"
+institute: "Penn State"
+format: erie-beamer
+---
+
+## A slide with bullets
+
+- A top-level bullet with **bold** text
+- Another bullet
+  - A nested item with `inline code`
+  - Another nested item
+
+## Math and a column split
+
+:::: {.columns}
+::: {.column width="55%"}
+Ordinary least squares:
+
+$$\hat\beta = (X^\top X)^{-1} X^\top y$$
+:::
+::: {.column width="45%"}
+- Right-hand column
+- Works like a LaTeX `columns` block
+:::
+::::

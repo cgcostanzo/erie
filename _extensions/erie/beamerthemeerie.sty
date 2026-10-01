@@ -1,0 +1,114 @@
+% erie theme
+% https://github.com/cgcostanzo/erie
+
+% ====================
+% Dependencies
+% ====================
+
+\RequirePackage{exscale}
+\RequirePackage{fontspec}
+\RequirePackage{xpatch}
+
+% ====================
+% Fonts
+% ====================
+
+\usefonttheme{serif}
+
+\setmainfont{Latin Modern Roman}
+\setsansfont{Latin Modern Sans}
+\setmonofont{Latin Modern Mono}
+
+\setbeamerfont{title page title}{size=\LARGE,series=\bfseries}
+\setbeamerfont{title page author}{size=\footnotesize}
+\setbeamerfont{title page institute}{size=\scriptsize}
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+\setbeamerfont{caption}{size=\footnotesize}
+
+% ====================
+% Macros
+% ====================
+
+% Short accent rule, used under the frame title and on the title page
+\newcommand{\accentrule}{{\usebeamercolor[fg]{accent line}\rule{2.5em}{1pt}}}
+
+\makeatletter
+\def\beamer@andinst{\qquad}
+\makeatother
+
+% Pandoc/Quarto wraps lists in \tightlist, which zeroes \itemsep. Define it
+% as a no-op before pandoc's \providecommand so the theme's spacing applies.
+\newcommand{\tightlist}{}
+
+% ====================
+% Elements
+% ====================
+
+% Itemize
+
+\setbeamertemplate{itemize item}[circle]
+\setbeamertemplate{itemize subitem}{\usebeamerfont*{itemize subitem}\raise1.5pt\hbox{\donotcoloroutermaths$\circ$}}
+\setbeamertemplate{itemize subsubitem}{\usebeamerfont*{itemize subsubitem}\raise1.5pt\hbox{\donotcoloroutermaths$\circ$}}
+\xpatchcmd{\itemize}
+  {\def\makelabel}
+  {\ifnum\@itemdepth=1\relax
+     \setlength\itemsep{3ex}% separation for first level
+   \else
+     \ifnum\@itemdepth=2\relax
+       \setlength\itemsep{0.5ex}% separation for second level
+     \else
+       \ifnum\@itemdepth=3\relax
+         \setlength\itemsep{0.5ex}% separation for third level
+   \fi\fi\fi\def\makelabel
+  }
+ {}
+ {}
+
+% Equation
+\setlength\belowdisplayshortskip{2ex}
+
+% Caption
+\setlength{\abovecaptionskip}{2ex}
+\setlength{\belowcaptionskip}{1ex}
+\setbeamertemplate{caption}
+{
+    {\usebeamerfont{caption}\insertcaption}
+}
+
+% Navigation
+\beamertemplatenavigationsymbolsempty
+
+% ====================
+% Components
+% ====================
+
+% Title page
+\setbeamertemplate{title page}
+{
+    \begin{centering}
+        \vskip5ex plus 1filll
+        {\usebeamerfont{title page title}\usebeamercolor[fg]{title page}\inserttitle\\[1.5ex]}
+        \accentrule\\[2ex]
+        {\usebeamerfont{title page author}\usebeamercolor[fg]{title page}\insertauthor\\[2ex]}
+        {\usebeamerfont{title page institute}\usebeamercolor[fg]{title page}\insertinstitute\\[1ex]}
+        \vskip0pt plus 1filll
+    \end{centering}
+}
+
+% Footer
+\setbeamertemplate{footline}{
+    \hfill%
+    \usebeamercolor[fg]{page number in head/foot}%
+    \usebeamerfont{page number in head/foot}%
+    \hspace{2em}%
+    \ifnum\insertframenumber>1 \insertframenumber\fi\kern1em\vskip2ex%
+}
+
+% Frame title
+\setbeamertemplate{frametitle}{
+    \nointerlineskip
+    \vskip2ex
+    {\usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle}
+    \par\nointerlineskip\vskip0.8ex
+    \accentrule
+}
